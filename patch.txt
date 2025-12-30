@@ -6,3 +6,6 @@
 patch 1:
     -bugfixes
     -new zoom
+patch 2:
+    -Added Yandex
+    -Changed name
