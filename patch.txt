@@ -1,11 +1,21 @@
--Added changeble search engines to the browser:
-    Google
-    Bing
-    Yahoo!
-    DuckDuckGo
-patch 1:
+Version 2 Beta 1:
+    -Added a sound booster bar
+    -Added "Save Image as Type"
+    -Added DevTools
+    -Enabled GPU accelarated rendering
+    -Added a better download indicator
     -bugfixes
-    -new zoom
-patch 2:
-    -Added Yandex
-    -Changed name
+
+Version 1 Beta 1.1:
+    -Added changeble search engines to the browser:
+        Google
+        Bing
+        Yahoo!
+        DuckDuckGo
+    patch 1:
+        -bugfixes
+        -new zoom
+    patch 2:
+        -Added Yandex
+        -Changed name
+
