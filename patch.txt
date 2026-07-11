@@ -1,3 +1,9 @@
+Version 2 Beta 2:
+    -Removed the native windows title bar
+    -Now using Win32 DWM API as Window manager
+    -Bugfixes
+    -New Icons
+
 Version 2 Beta 1:
     -Added a sound booster bar
     -Added "Save Image as Type"
