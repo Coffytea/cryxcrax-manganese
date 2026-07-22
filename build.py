@@ -1,33 +1,16 @@
-"""
-Build script: packages Manganese (the browser) and the installer into
-standalone Windows executables with PyInstaller, and arranges them into
-the folder layout installer_app.py expects at runtime:
+# Copyright 2026 Mult1c
 
-    dist/
-      installer/
-        Manganese Setup.exe      <- built from installer/installer_app.py
-        assets/
-          cryx.ico
-          Syne-Bold.ttf           (place this yourself -- see note below)
-        payload/                 <- the built browser, copied in by this
-          Manganesev2.0.exe          script, is what actually gets
-          <PyQt6/QtWebEngine DLLs etc, bundled by PyInstaller>
-                                       installed onto the end user's machine
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 
-Run on Windows, from the repo root:
-    pip install -r requirements.txt
-    pip install -r installer/requirements.txt
-    python build.py
+#    http://apache.org
 
-NOTE on the Syne font: this script does not download fonts. Place a real
-Syne-Bold.ttf (from https://fonts.google.com/specimen/Syne, OFL-licensed)
-at installer/assets/Syne-Bold.ttf before building, or the installer will
-fall back to Segoe UI for its wordmark (still looks fine, just not Syne).
-
-NOTE on the icon: place your existing cryx.ico at installer/assets/cryx.ico
-(the same file your original Inno Setup config pointed
-SetupIconFile/IconFilename at).
-"""
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 import os
 import shutil
 import subprocess
@@ -47,10 +30,7 @@ def _run(cmd, cwd=None):
 
 
 def build_browser():
-    """Package the manganese package into a single-folder PyInstaller
-    build (single-folder rather than single-file: QtWebEngine ships a
-    separate helper process + large resource files that don't unpack
-    cleanly from a single-file exe at every launch)."""
+  
     print("\n=== Building Manganese browser ===")
     icon_path = os.path.join(ROOT, "installer", "assets", "cryx.ico")
     cmd = [
@@ -72,10 +52,7 @@ def build_browser():
 
 
 def build_installer():
-    """Package installer_app.py the same way. --onefile here is fine
-    (and preferred, for a clean single "Manganese Setup.exe" download) --
-    the installer itself is pure PyQt6 + comtypes + winreg, no QtWebEngine
-    helper-process complexity."""
+   
     print("\n=== Building installer ===")
     installer_dir = os.path.join(ROOT, "installer")
     _run([
@@ -90,9 +67,7 @@ def build_installer():
 
 
 def assemble_payload():
-    """Copy the built browser into installer/payload so installer_app.py's
-    SOURCE_DIR (installer/payload, relative to the built installer exe)
-    has something real to install."""
+    
     print("\n=== Assembling installer payload ===")
     built_browser_dir = os.path.join(BROWSER_BUILD_DIR, "Manganesev2.0")
     if not os.path.isdir(built_browser_dir):
