@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "manganese"
+version = "2.0.0"
+description = "Manganese -- a Chromium-based (QtWebEngine) desktop browser."
+authors = [{ name = "Mult1c / Cryxcrax" }]
+requires-python = ">=3.10"
+dependencies = [
+    "PyQt6>=6.5",
+    "PyQt6-WebEngine>=6.5",
+]
+
+[project.optional-dependencies]
+images = ["Pillow"]
+
+[project.scripts]
+manganese = "manganese.app:main"
+
+[tool.setuptools.packages.find]
+include = ["manganese*"]
