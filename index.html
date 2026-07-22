@@ -1,240 +1,429 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cryxcrax Manganese</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-<style>
-    body {
-        margin: 0;
-        font-family: 'Nunito', 'Roboto', sans-serif;
-        background: #1e1e1e;
-        color: #e0e0e0;
-        overflow-x: hidden;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manganese Browser - The browser built for speed and privacy</title>
+    <meta name="description" content="Download Manganese Mult1c.">
+    
 
-    body::before {
-        content: "";
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background-image: repeating-linear-gradient(
-            45deg,
-            rgba(255,255,255,0.02),
-            rgba(255,255,255,0.02) 1px,
-            transparent 1px,
-            transparent 20px
-        );
-        pointer-events: none;
-        z-index: 0;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        syne: ['Syne', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        chrome: {
+                            blue: '#0b57d0',
+                            blueHover: '#0842a0',
+                            lightBlue: '#e8f0fe',
+                            bgLight: '#ffffff',
+                            bgSubtle: '#f8f9fa',
+                            bgDark: '#121316',
+                            cardDark: '#1e1f23',
+                            borderDark: '#2a2c32',
+                            textDark: '#e3e2e6'
+                        },
+                        manganese: {
+                            primary: '#6366f1',
+                            accent: '#a855f7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
-    header {
-        background: linear-gradient(90deg, #2b2b2b, #333333);
-        padding: 4rem 1rem;
-        text-align: center;
-        position: relative;
-        z-index: 1;
-    }
-
-    header h1 {
-        margin: 0;
-        font-size: 5rem;
-        color: #ffffff;
-        text-shadow: 1px 1px 5px #000;
-    }
-
-    main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4rem;
-        position: relative;
-        z-index: 1;
-        padding: 4rem 1rem;
-    }
-
-    section {
-        max-width: 900px;
-        text-align: center;
-        padding: 2rem 1rem;
-    }
-
-    h2 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        color: #fff;
-    }
-
-    p {
-        font-size: 1.2rem;
-        line-height: 1.6;
-        color: #dcdcdc;
-    }
-
-    .btn {
-        background: #444;
-        color: #fff;
-        padding: 1rem 2.5rem;
-        border: none;
-        border-radius: 10px;
-        font-weight: 700;
-        font-size: 1.1rem;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-
-    .btn:hover {
-        background: #5a5a5a;
-        transform: translateY(-3px) scale(1.02);
-        cursor: pointer;
-        box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-    }
-
-    .features {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        justify-content: center;
-    }
-
-    .feature-card {
-        background: #2b2b2b;
-        border-radius: 15px;
-        height: fit-content;
-        padding: 2rem;
-        flex: 1 1 250px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-        transition: transform 0.3s ease;
-    }
-
-    .feature-card:hover {
-        transform: translateY(-5px) scale(1.02);
-    }
-
-    .feature-card h3 {
-        margin-top: 0;
-        color: #fff;
-    }
-
-    .feature-card p {
-        color: #ccc;
-        font-size: 1rem;
-    }
-
-    footer {
-        text-align: center;
-        padding: 2rem 1rem;
-        background: #2b2b2b;
-        font-size: 0.9rem;
-        color: #aaa;
-        position: relative;
-        z-index: 1;
-    }
-
-    .txt-content {
-        background: #3a3a3a;
-        color: #fff;
-        padding: 1rem;
-        border-radius: .5rem;
-        white-space: pre-wrap;
-        font-family: sans-serif;
-        font-size: 1rem;
-    }
-
-    .important-stuff {
-        background: #3a3a3a;
-        padding: 1rem;
-        border-radius: .5rem;
-        white-space: pre-wrap;
-        height: fit-content;
-    }
-
-    .left-allligned-importantstuff {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        justify-content: left;
-        background: #3a3a3a;
-        padding: 1rem;
-        border-radius: .5rem;
-        white-space: pre-wrap;
-        height: fit-content;
-    }
-
-</style>
+    <style>
+       
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.4);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(156, 163, 175, 0.7);
+        }
+        .manganese-logo-text {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+        .chrome-shadow {
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        }
+        .chrome-shadow-dark {
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        }
+    </style>
 </head>
-<body>
-<header>
-    <h1>Cryxcrax Manganese</h1>
-</header>
-<main>
-    <section>
-        <p><b>Pronounced /ˈkrikskrak͡s ˈmæŋɡəniːz/</b></p>
-        <p>Experience the sleek, fast, and lightweight Cryxcrax Manganese. Built in Python with a focus on simplicity and performance. Download now and start browsing faster.</p>
-        <div class="feature-card">
-        <a class="btn" href="https://drive.google.com/uc?export=download&id=1-0XXCOt1nXN8PAn1jPPKtro627ZTX1o4" download>Windows Installer (Latest)</a>
-        </div>
-        <div>
-            <p> </p>
-        </div>
-        <div class="feature-card">
-        <a class="btn" href="https://drive.google.com/file/d/1FmWED-F4XOftf4NBK8YSQu40JOZoEv-w/view?usp=drive_link" download>Windows Port. Edition (Version 1 Beta 1.1 p2)</a>
-        </div>
-    </section>
-    <section class="features">
-        <div class="feature-card">
-            <h3>Fast & Lightweight</h3>
-            <p>Manganese is designed to be lightning-fast and use minimal system resources, and uses half as much ram that Google Chrome would use.*¹</p>
-        </div>
-        <div class="feature-card">
-            <h3>Tabbed Browsing</h3>
-            <p>Manage multiple pages easily with fast tab support, including easy-to-use navigation and quick switching between tabs.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Beta Release Phase</h3>
-            <p>The browser is currently in Version 2.0 Beta 2, bugs and visual glitches, etc. may be found.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Secure & Modern</h3>
-            <p>Built on Python and PyQt6, Manganese uses a modern rendering engine with security features to keep your browsing safe.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Development time</h3>
-            <p><p id="timePassed"></p>
 
-<script>
-function daysSince(dateString) {
-  const then = new Date(dateString);
-  const now = new Date();
-  const diff = now - then;
-  return Math.floor(diff / (1000 * 60 * 60 * 24));
-}
+<body class="bg-white dark:bg-[#121316] text-gray-900 dark:text-chrome-textDark font-sans antialiased transition-colors duration-300 min-h-screen flex flex-col selection:bg-chrome-blue selection:text-white">
 
-const madeDate = "2025-11-08";
-document.getElementById("timePassed").textContent =
-  `${daysSince(madeDate)} days in development. In other words since 2025. November 08.`;
-</script></p>
-        </div>
-        <div class="feature-card">
-            <h3>Patch notes</h3>
-            <div class="txt-content">
-                <embed src="patch.txt">
+    
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-[#121316]/90 backdrop-blur-md border-b border-transparent dark:border-chrome-borderDark/40 transition-colors">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
+            
+            
+            <a href="#" class="flex items-center gap-3 group">
+                
+                
+                
+                <div class="flex items-baseline gap-2">
+                    <span class="manganese-logo-text text-2xl sm:text-3xl text-gray-900 dark:text-white tracking-tight">
+                        manganese
+                    </span>
+                    
+                </div>
+            </a>
+
+
+                <a href="https://github.com/Coffytea/cryxcrax-manganese" target="_blank" rel="noopener" class="hover:text-chrome-blue dark:hover:text-indigo-400 transition-colors flex items-center gap-1.5">
+                    <span>GitHub</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-70"></i>
+                </a>
+            </nav>
+
+            
+            <div class="flex items-center gap-3">
+                
+                <button id="themeToggleBtn" title="Theme Settings (Matches System Theme)" class="p-2.5 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center gap-2 text-xs font-semibold">
+                    <i id="themeIcon" class="fa-solid fa-circle-half-stroke text-sm"></i>
+                    <span id="themeLabel" class="hidden sm:inline">Theme: System</span>
+                </button>
+
+              
+                <button id="mobileMenuBtn" aria-label="Toggle Menu" class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
             </div>
         </div>
-    <div class="left-alligned-importantstuff">
-            <h3><b>Microsoft Defender SmartScreen may activate, since the app doesn't have a valid digital signature, but it is not malware.</b></h3>
+
+        
+        <div id="mobileDrawer" class="hidden md:hidden border-b border-gray-200 dark:border-chrome-borderDark bg-white dark:bg-[#121316] px-6 py-4 space-y-3 text-sm font-medium">
+            <a href="#features" class="block text-gray-700 dark:text-gray-200 hover:text-chrome-blue">Features</a>
+            <a href="#safety" class="block text-gray-700 dark:text-gray-200 hover:text-chrome-blue">Safety & Privacy</a>
+            <a href="#platforms" class="block text-gray-700 dark:text-gray-200 hover:text-chrome-blue">Platforms</a>
+            <a href="https://github.com/Coffytea/cryxcrax-manganese" target="_blank" rel="noopener" class="block text-chrome-blue dark:text-indigo-400">
+                GitHub Repository <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1"></i>
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+      
+        <section class="pt-8 sm:pt-16 pb-20 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 sm:px-8">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                    
+                    
+                    <div class="lg:col-span-7 space-y-6 text-left">
+                        
+                        
+
+                       
+                        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-[1.08]">
+                            The browser that<br class="hidden sm:inline">
+                            <span class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 dark:from-indigo-400 dark:via-purple-300 dark:to-pink-400 bg-clip-text text-transparent">
+                                gets the same stuff done
+                            </span>
+                        </h1>
+
+                        
+                        <div class="pt-2 space-y-4">
+                            <div>
+                                <a id="mainDownloadBtn" 
+                                   href="https://github.com/Coffytea/cryxcrax-manganese/releases/latest" 
+                                   target="_blank" 
+                                   rel="noopener"
+                                   class="inline-flex items-center justify-center gap-3 px-8 py-3.5 sm:py-4 rounded-full bg-chrome-blue hover:bg-chrome-blueHover text-white font-semibold text-base sm:text-lg shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.98]">
+                                    <i id="mainBtnIcon" class="fa-solid fa-download text-lg"></i>
+                                    <span id="mainBtnLabel">Download Manganese</span>
+                                </a>
+                            </div>
+
+                         
+                            <div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium pl-2">
+                                <span id="detectedOsSubtext">For Windows 11/10 64-bit • Version 2.0.0</span>
+                            </div>
+                            
+                             <h3><b>Microsoft Defender SmartScreen may activate, since the app doesn't have a valid digital signature, but it is not malware.</b></h3>
+                            <p class="text-[11px] text-gray-400 dark:text-gray-500 pt-1 leading-normal">
+                                By downloading Manganese, you agree to the open-source <a href="https://github.com/Coffytea/cryxcrax-manganese/blob/main/LICENSE" target="_blank" rel="noopener" class="underline hover:text-gray-600 dark:hover:text-gray-300">Software License Terms</a> 
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        
+        <section id="features" class="py-20 bg-chrome-bgSubtle dark:bg-[#16171a] border-t border-gray-200/80 dark:border-chrome-borderDark/60 transition-colors">
+            <div class="max-w-7xl mx-auto px-6 sm:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <h2 class="text-xs font-extrabold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-2">Designed For Precision</h2>
+                    <p class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+                        Built on Chromium. PyQt6-WebEngine actually.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                 
+                    <div class="p-8 rounded-3xl bg-white dark:bg-chrome-cardDark border border-gray-200/80 dark:border-chrome-borderDark shadow-sm">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-gauge-high"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Blazing Engine</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                            Optimization ensures (almost) immediate launch times and lower memory consumption during multi-tab sessions. <a><</a>----(compared to Google Chrome)
+                        </p>
+                    </div>
+
+                
+                    <div id="safety" class="p-8 rounded-3xl bg-white dark:bg-chrome-cardDark border border-gray-200/80 dark:border-chrome-borderDark shadow-sm">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-6">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Zero Tracking</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                            I don`t track your data because I don`t need your data
+                        </p>
+                    </div>
+
+                    <div class="p-8 rounded-3xl bg-white dark:bg-chrome-cardDark border border-gray-200/80 dark:border-chrome-borderDark shadow-sm">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Patch notes</h3>
+                        <embed src="patch.txt">
+                    </div>
+
+                    <div class="p-8 rounded-3xl bg-white dark:bg-chrome-cardDark border border-gray-200/80 dark:border-chrome-borderDark shadow-sm"> 
+    <div class="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/80 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl mb-6"> 
+        <i class="fa-solid fa-palette"></i> 
+    </div> 
+    
+    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Development time</h3> 
+    
+    
+    <p id="timePassed" class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+       
+    </p>
+
+    <script> 
+        function daysSince(dateString) { 
+            const then = new Date(dateString); 
+            const now = new Date(); 
+            const diff = now - then; 
+            return Math.floor(diff / (1000 * 60 * 60 * 24)); 
+        } 
+        
+        const madeDate = "2025-11-08"; 
+        document.getElementById("timePassed").textContent = `${daysSince(madeDate)} days in development. In other words since 2025. November 08.`; 
+    </script> 
+</div>
+
+                </div>
+
+            </div>
+        </section>
+
+        
+    </main>
+
+   
+    <div id="updateModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-chrome-cardDark rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-gray-200 dark:border-chrome-borderDark relative">
+            <button onclick="closeUpdateModal()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl mb-4">
+                <i class="fa-solid fa-rotate-right"></i>
+            </div>
+
+            </p>
+
+            <a href="https://github.com/Coffytea/cryxcrax-manganese/releases/latest" target="_blank" rel="noopener" class="w-full inline-flex items-center justify-center gap-2 py-3 rounded-full bg-chrome-blue text-white font-semibold text-sm hover:bg-chrome-blueHover transition-colors">
+                <span>View Latest Release Notes</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+            </a>
+        </div>
     </div>
-    </section>
-</main>
-<footer>
-    &copy; 2026 Cryxcrax/Mult1c</a>. All rights reserved.</p>
-  </div> *¹ = In testing conditions, 10 or 20 tabs opened.
-</footer>
+
+  
+    <footer class="bg-chrome-bgSubtle dark:bg-[#0e0f11] border-t border-gray-200/80 dark:border-chrome-borderDark/60 py-10 text-xs text-gray-500 dark:text-gray-400 transition-colors">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            
+            <div class="flex items-center gap-3">
+                <span class="manganese-logo-text text-lg text-gray-900 dark:text-white">manganese</span>
+                <span>•</span>
+                <span>Created by Mult1c/Cryxcrax</span>
+            </div>
+
+            <div class="flex items-center gap-6 font-medium">
+                <a href="https://github.com/Coffytea/cryxcrax-manganese" target="_blank" rel="noopener" class="hover:text-chrome-blue dark:hover:text-indigo-400">GitHub Repository</a>
+                <a href="https://github.com/Coffytea/cryxcrax-manganese/releases" target="_blank" rel="noopener" class="hover:text-chrome-blue dark:hover:text-indigo-400">Releases</a>
+                <a href="https://github.com/Coffytea/cryxcrax-manganese/issues" target="_blank" rel="noopener" class="hover:text-chrome-blue dark:hover:text-indigo-400">Report Issue</a>
+            </div>
+
+            <div>
+                Chromium and Google Chrome are trademarks of Google LLC.
+            </div>
+
+        </div>
+    </footer>
+
+    
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-gray-900 text-white dark:bg-white dark:text-gray-900 px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-semibold pointer-events-none">
+        <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600 text-base"></i>
+        <span id="toastMsg">Action completed</span>
+    </div>
+
+   
+    <script>
+        
+      
+        function detectUserOS() {
+            const userAgent = window.navigator.userAgent;
+            const platform = window.navigator.platform;
+            
+            const mainBtnLabel = document.getElementById('mainBtnLabel');
+            const mainBtnIcon = document.getElementById('mainBtnIcon');
+            const detectedOsSubtext = document.getElementById('detectedOsSubtext');
+
+            let os = 'Windows';
+            let iconClass = 'fa-brands fa-windows';
+            let subText = 'For Windows 11/10 64-bit • Version 2.0.0';
+
+            if (userAgent.indexOf('Mac') !== -1 || platform.indexOf('Mac') !== -1) {
+                os = 'macOS';
+                iconClass = 'fa-brands fa-apple';
+                subText = 'For macOS (Apple Silicon / Intel) • Version 2.0.0';
+            } else if (userAgent.indexOf('Linux') !== -1 || platform.indexOf('Linux') !== -1) {
+                os = 'Linux';
+                iconClass = 'fa-brands fa-linux';
+                subText = 'For Linux (AppImage / .deb) • Version 2.0.0';
+            }
+
+            if (mainBtnIcon) mainBtnIcon.className = iconClass + ' text-lg';
+            if (mainBtnLabel) mainBtnLabel.textContent = `Download Manganese for ${os}`;
+            if (detectedOsSubtext) detectedOsSubtext.textContent = subText;
+        }
+
+     
+        let themeState = 'system'; 
+
+        function applyTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            const themeLabel = document.getElementById('themeLabel');
+
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (themeState === 'dark' || (themeState === 'system' && prefersDark)) {
+                html.classList.add('dark');
+            } else {
+                html.classList.remove('dark');
+            }
+
+            if (themeIcon && themeLabel) {
+                if (themeState === 'system') {
+                    themeIcon.className = 'fa-solid fa-circle-half-stroke text-sm';
+                    themeLabel.textContent = 'Theme: System';
+                } else if (themeState === 'dark') {
+                    themeIcon.className = 'fa-solid fa-moon text-indigo-400 text-sm';
+                    themeLabel.textContent = 'Theme: Dark';
+                } else {
+                    themeIcon.className = 'fa-solid fa-sun text-amber-500 text-sm';
+                    themeLabel.textContent = 'Theme: Light';
+                }
+            }
+        }
+
+      
+        document.getElementById('themeToggleBtn')?.addEventListener('click', () => {
+            if (themeState === 'system') themeState = 'dark';
+            else if (themeState === 'dark') themeState = 'light';
+            else themeState = 'system';
+            
+            applyTheme();
+            showToast(`Switched theme mode to ${themeState}`);
+        });
+
+s
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (themeState === 'system') applyTheme();
+        });
+
+
+        function openUpdateModal() {
+            document.getElementById('updateModal')?.classList.remove('hidden');
+        }
+        function closeUpdateModal() {
+            document.getElementById('updateModal')?.classList.add('hidden');
+        }
+
+    
+        function copyToClipboard(text, btnElement) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast('Copied command to clipboard!');
+        }
+
+   
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            if (toast && toastMsg) {
+                toastMsg.textContent = msg;
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+                
+                setTimeout(() => {
+                    toast.classList.remove('translate-y-0', 'opacity-100');
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 2200);
+            }
+        }
+
+  
+        document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+            document.getElementById('mobileDrawer')?.classList.toggle('hidden');
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            detectUserOS();
+            applyTheme();
+        });
+    </script>
 </body>
 </html>
-
-
-
