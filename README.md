@@ -3,8 +3,7 @@ known bugs: uninstall doesnt work, if you want to uninstall it, delete the folde
 # Manganese
 a Chromium-based (QtWebEngine) desktop browser for Windows.
 
-[Download the installer]
-(https://github.com/Coffytea/cryxcrax-manganese/releases/tag/mainrelease)
+[Download the installer](https://github.com/Coffytea/cryxcrax-manganese/releases/tag/mainrelease)
 
 ## running from source
 ```
