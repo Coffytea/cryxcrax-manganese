@@ -1,0 +1,36 @@
+Version 2.0.0:
+  -New menu
+  -Added Setting page
+  -Redesign
+  -Bufixes
+  -Added Cookie saving, History, Print, Find in page, PDF Viewer, Better downloads
+  -Added customization
+  -Optimazation
+  
+Old:
+Version 2 Beta 2:
+    -Removed the native windows title bar
+    -Now using Win32 DWM API as Window manager
+    -Bugfixes
+    -New Icons
+
+Version 2 Beta 1:
+    -Added a sound booster bar
+    -Added "Save Image as Type"
+    -Added DevTools
+    -Enabled GPU accelarated rendering
+    -Added a better download indicator
+    -bugfixes
+
+Version 1 Beta 1.1:
+    -Added changeble search engines to the browser:
+        Google
+        Bing
+        Yahoo!
+        DuckDuckGo
+    patch 1:
+        -bugfixes
+        -new zoom
+    patch 2:
+        -Added Yandex
+        -Changed name
