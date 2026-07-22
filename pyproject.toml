@@ -7,8 +7,6 @@ name = "manganese"
 version = "2.0.0"
 description = "Manganese -- a Chromium-based (QtWebEngine) desktop browser."
 authors = [{ name = "Mult1c / Cryxcrax" }]
-license = "Apache-2.0"
-license-files = ["LICENSE"]
 requires-python = ">=3.10"
 dependencies = [
     "PyQt6>=6.5",
