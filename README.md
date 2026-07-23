@@ -1,5 +1,11 @@
 known bugs: uninstall doesnt work, if you want to uninstall it, delete the folder itself
 
+![New Tab](browser.png)
+
+![Menu](browsermenu.png)
+
+![Settings](browsersettings.png)
+
 # Manganese
 a Chromium-based (QtWebEngine) desktop browser for Windows.
 
