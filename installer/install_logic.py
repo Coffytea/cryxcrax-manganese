@@ -7,8 +7,8 @@ import winreg
 APP_ID = "{C1E3E4A4-7D21-4E6B-9C91-CRYXRAXBROWSER}"
 APP_NAME = "Manganese"
 APP_PUBLISHER = "Mult1c/Cryxcrax"
-APP_VERSION = "2.0.0"
-EXE_NAME = "Manganesev2.0.exe"
+APP_VERSION = "2.1.0"
+EXE_NAME = "Manganesev2.1.0.exe"
 
 DEFAULT_INSTALL_DIR = ntpath.join(
     os.environ.get("ProgramFiles", r"C:\Program Files"), "Cryxcrax", "Manganese"
@@ -43,6 +43,28 @@ def copy_application_files(source_dir: str, install_dir: str, progress_cb=None):
         shutil.copy2(src_path, dst_path)
         if progress_cb:
             progress_cb(i, total, rel_path)
+
+
+def prepare_install_directory(install_dir: str):
+    install_dir = os.path.abspath(install_dir)
+    drive, _tail = os.path.splitdrive(install_dir)
+    if os.path.normcase(os.path.normpath(install_dir)) == os.path.normcase(os.path.normpath(drive + os.sep)):
+        raise ValueError("Choose an application folder rather than a drive root.")
+
+    import subprocess
+    subprocess.run(
+        [
+            "powershell.exe", "-NoProfile", "-Command",
+            "Get-Process | Where-Object { $_.ProcessName -like 'Manganesev*' } | Stop-Process -Force",
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    remove_shortcuts()
+    if os.path.exists(install_dir):
+        shutil.rmtree(install_dir)
+    os.makedirs(install_dir, exist_ok=True)
 
 
 def _create_shortcut_via_wsh(target: str, shortcut_path: str, icon_path: str, working_dir: str):

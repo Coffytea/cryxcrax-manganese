@@ -3,6 +3,8 @@ import json
 import ctypes
 import urllib.parse
 import urllib.request
+import subprocess
+import sys
 from ctypes import byref, c_int, c_uint, sizeof, wintypes
 
 from PyQt6.QtWidgets import (
@@ -32,7 +34,7 @@ except ImportError:
 from manganese.platform_win32 import *
 from manganese.platform_win32 import _detect_windows_dark_mode, _get_x_lparam, _get_y_lparam
 
-from manganese.theming import THEMES, create_vector_icon
+from manganese.theming import THEMES, create_vector_icon, _colorref
 from manganese.pages import (
     NEW_TAB_URL, MANGAN_SETTINGS_URL, MANGAN_DOWNLOADS_URL, MANGAN_HISTORY_URL,
 )
@@ -55,6 +57,7 @@ from manganese.shared_profile import (
     get_shared_history_store, get_shared_prefs,
     get_mangan_scheme_handler, set_mangan_scheme_handler,
     get_shared_downloads_list, is_download_signal_connected, mark_download_signal_connected,
+    is_incognito,
 )
 
 
@@ -62,6 +65,7 @@ class TabbedBrowser(QMainWindow):
     def __init__(self, url_to_open=None):
         super().__init__()
         window_registry.register(self)
+        self.is_incognito = is_incognito()
         self._native_frame_ready = False
         self._toggle_maximize_pending = False
         self._last_dpi = 96
@@ -184,6 +188,9 @@ class TabbedBrowser(QMainWindow):
         action_new_tab_menu.setShortcut(QKeySequence("Ctrl+T"))
         action_new_tab_menu.triggered.connect(lambda: self.add_tab())
         self._themed_icon_widgets.append((action_new_tab_menu, "new_tab", QSize(18, 18), False))
+
+        action_incognito = settings_menu.addAction("New Incognito Window")
+        action_incognito.triggered.connect(self.open_incognito_window)
 
         settings_menu.addSeparator()
 
@@ -377,6 +384,48 @@ class TabbedBrowser(QMainWindow):
 
     def _theme(self):
         base = THEMES["dark"] if self.dark_mode else THEMES["light"]
+        if self.is_incognito:
+            themed = dict(THEMES["dark"])
+            themed.update({
+                "window_bg": "#202124",
+                "toolbar_bg": "#292a2d",
+                "toolbar_border": "#3c4043",
+                "button_hover": "#3c4043",
+                "button_pressed": "#5f6368",
+                "icon_color": "#bdc1c6",
+                "icon_color_bright": "#f1f3f4",
+                "tabbar_bg": "#202124",
+                "tab_bg": "#3c4043",
+                "tab_text": "#bdc1c6",
+                "tab_selected_bg": "#202124",
+                "tab_selected_text": "#f1f3f4",
+                "tab_selected_border": "#5f6368",
+                "tab_hover_bg": "#3c4043",
+                "tab_hover_text": "#f1f3f4",
+                "accent": "#9aa0a6",
+                "close_btn_icon": "#bdc1c6",
+                "close_btn_hover": "#5f6368",
+                "close_btn_pressed": "#80868b",
+                "urlbar_bg": "#202124",
+                "urlbar_text": "#f1f3f4",
+                "urlbar_border": "#5f6368",
+                "urlbar_focus_border": "#bdc1c6",
+                "urlbar_focus_bg": "#202124",
+                "urlbar_placeholder": "#9aa0a6",
+                "menu_bg": "#292a2d",
+                "menu_text": "#e8eaed",
+                "menu_border": "#5f6368",
+                "menu_item_hover_bg": "#3c4043",
+                "menu_item_hover_text": "#ffffff",
+                "menu_separator": "#5f6368",
+                "tooltip_bg": "#292a2d",
+                "tooltip_text": "#e8eaed",
+                "tooltip_border": "#5f6368",
+                "window_controls_hover": "#3c4043",
+                "window_controls_pressed": "#5f6368",
+                "dwm_border_color": _colorref(0x29, 0x2A, 0x2D),
+            })
+            return themed
         accent = self.prefs.get_accent_color(self.dark_mode)
         if accent and accent != base["accent"]:
             themed = dict(base)
@@ -391,6 +440,18 @@ class TabbedBrowser(QMainWindow):
         return create_vector_icon(name, size=size, color=QColor(color))
 
     def _new_tab_html(self):
+        if self.is_incognito:
+            html = new_tab_html(True, self.browserengine, None, "#9aa0a6")
+            html = html.replace(
+                '<div class="mg-logo">Manganese<span class="dot"></span></div>',
+                '<div class="mg-logo">Manganese<span class="dot"></span><span class="mg-incognito-label">incognito</span></div>',
+            )
+            html = html.replace(
+                ".mg-logo {",
+                ".mg-logo { flex-direction: column; align-items: center; gap: 2px; } .mg-incognito-label { font: 500 13px 'Segoe UI', sans-serif; letter-spacing: 2px; text-transform: uppercase; color: #9aa0a6; } .mg-logo {",
+                1,
+            )
+            return html
         return new_tab_html(
             self.dark_mode, self.browserengine, self.prefs.get_new_tab_background(),
             self.prefs.get_accent_color(self.dark_mode),
@@ -699,8 +760,8 @@ class TabbedBrowser(QMainWindow):
             except RuntimeError:
                 pass
 
-        new_theme_attr = "dark" if self.dark_mode else "light"
-        new_accent = self.prefs.get_accent_color(self.dark_mode)
+        new_theme_attr = "dark" if self.is_incognito or self.dark_mode else "light"
+        new_accent = self._theme()["accent"]
         for browser in self._iter_browsers():
             try:
                 u = browser.url().toString()
@@ -1465,7 +1526,7 @@ class TabbedBrowser(QMainWindow):
                 QMessageBox.critical(self, "Print Error", f"Could not print this page:\n{str(e)}")
 
     def show_about(self):
-        QMessageBox.information(self, "About Manganese", "Cryxcrax Manganese V2.0\nBuilt by Mult1c")
+        QMessageBox.information(self, "About Manganese", "Cryxcrax Manganese V2.1.0\nBuilt by Mult1c")
 
     def add_tab(self, qurl=None, label="New Tab"):
         show_new_tab_page = not qurl or qurl.isEmpty()
@@ -1673,6 +1734,12 @@ class TabbedBrowser(QMainWindow):
 
     def current_browser(self):
         return self._browser_for_tab(self.tabs.currentWidget())
+
+    def open_incognito_window(self):
+        if getattr(sys, "frozen", False):
+            subprocess.Popen([sys.executable, "--incognito"])
+        else:
+            subprocess.Popen([sys.executable, "-m", "manganese", "--incognito"])
 
     def _iter_browsers(self):
         for i in range(self.tabs.count()):

@@ -30,7 +30,13 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
 
+    incognito = "--incognito" in argv
+    argv = [arg for arg in argv if arg != "--incognito"]
+
     _register_mangan_scheme()
+
+    from manganese.shared_profile import set_incognito
+    set_incognito(incognito)
 
     from manganese.window import TabbedBrowser
     from PyQt6.QtWidgets import QApplication

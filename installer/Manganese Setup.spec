@@ -2,10 +2,10 @@
 
 
 a = Analysis(
-    ['C:\\Users\\Mult1c\\Desktop\\manganese_package\\installer\\installer_app.py'],
+    ['C:\\Users\\Mult1c\\Desktop\\cryxcrax-manganese-main (1)\\cryxcrax-manganese-main\\installer\\installer_app.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('C:\\Users\\Mult1c\\Desktop\\cryxcrax-manganese-main (1)\\cryxcrax-manganese-main\\dist\\installer\\payload', 'payload'), ('C:\\Users\\Mult1c\\Desktop\\cryxcrax-manganese-main (1)\\cryxcrax-manganese-main\\dist\\installer\\assets', 'assets')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

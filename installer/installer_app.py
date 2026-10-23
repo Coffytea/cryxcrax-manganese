@@ -20,9 +20,8 @@ TEXT_SECONDARY = "#9a9ca3"
 BORDER = "#2a2c33"
 
 def _app_base_dir():
-
     if getattr(sys, "frozen", False):
-        return os.path.dirname(os.path.abspath(sys.executable))
+        return getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(sys.executable)))
     return os.path.dirname(os.path.abspath(__file__))
 
 
@@ -37,10 +36,6 @@ def _load_syne_font():
         families = QFontDatabase.applicationFontFamilies(font_id)
         if families:
             return families[0]
-    else:
-        print(f"WARNING: Syne-Bold.ttf not found at {font_path!r}; "
-              f"falling back to Segoe UI. Make sure assets/ ships alongside "
-              f"the installer exe.", file=sys.stderr)
     return "Segoe UI"
 
 
@@ -68,11 +63,11 @@ class InstallWorker(QThread):
             def on_progress(i, total, name):
                 self.progress.emit(i, total, name)
 
+            install_logic.prepare_install_directory(self.install_dir)
+            win_registration.unregister_as_browser()
             install_logic.copy_application_files(SOURCE_DIR, self.install_dir, progress_cb=on_progress)
 
-            icon_path = ICON_PATH if os.path.isfile(ICON_PATH) else os.path.join(
-                self.install_dir, install_logic.EXE_NAME
-            )
+            icon_path = os.path.join(self.install_dir, install_logic.EXE_NAME)
             install_logic.create_shortcuts(
                 self.install_dir, icon_path,
                 desktop=self.make_desktop_shortcut,

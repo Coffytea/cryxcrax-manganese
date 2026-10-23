@@ -1,10 +1,3 @@
-known bugs: uninstall doesnt work, if you want to uninstall it, delete the folder itself
-
-![New Tab](browser.png)
-
-![Menu](browsermenu.png)
-
-![Settings](browsersettings.png)
 
 # Manganese
 a Chromium-based (QtWebEngine) desktop browser for Windows.
@@ -53,11 +46,11 @@ pip install -r installer/requirements.txt
 ```
 python build.py
 ```
-this produces `dist/installer/` containing `Manganese Setup.exe`,
-`assets/`, and `payload/` (the built browser), ship that whole folder.
+this produces `dist/installer/Manganese Setup.exe`, a standalone installer
+with the browser payload and assets embedded. Ship only that executable.
 
 running `Manganese Setup.exe --uninstall` (or the `UninstallString` it
-registers in Add/Remove Programs) removes everything it installed. <----- this aint working
+registers in Add/Remove Programs) removes the installed application.
 
 ## package layout
 
@@ -103,6 +96,5 @@ build.py
 ## Notes
 
 - this app is Windows-only
-- uninstalling does **not** delete `%LOCALAPPDATA%\Manganese` (history,
-  cookies, prefs) by default, pass `--purge-data` to the uninstaller to
-  remove that too. <------- uninstall aint even working rn
+- uninstalling also removes `%LOCALAPPDATA%\Manganese`, including browser
+  history, cookies, preferences, and profile data.

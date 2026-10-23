@@ -149,7 +149,7 @@ def build_settings_page(theme_attr, search_engine_name, downloads_dir, accent_co
 </div>
 <div class="mg-section-title">About</div>
 <div class="mg-card">
-  <div class="mg-row"><span class="mg-row-label">Manganese</span><span class="mg-row-sub">Cryxcrax Manganese V2.0 &middot; Built by Mult1c</span></div>
+  <div class="mg-row"><span class="mg-row-label">Manganese</span><span class="mg-row-sub">Cryxcrax Manganese V2.1.0 &middot; Built by Mult1c</span></div>
 </div>
 """
     return internal_page_shell(theme_attr, "Settings", body)

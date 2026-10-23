@@ -5,7 +5,7 @@ APP_NAME = "Manganese"
 APP_DESCRIPTION = "Manganese -- a fast, modern web browser."
 
 
-def register_as_browser(install_dir: str, exe_name: str = "Manganesev2.0.exe"):
+def register_as_browser(install_dir: str, exe_name: str = "Manganesev2.1.0.exe"):
     exe_path = f"{install_dir}\\{exe_name}"
     icon_path = f"{exe_path},0"
     client_key_path = rf"Software\Clients\StartMenuInternet\{APP_NAME}"

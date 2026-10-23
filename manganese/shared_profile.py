@@ -14,6 +14,16 @@ _prefs = None
 _mangan_scheme_handler = None
 _downloads_list = None
 _download_signal_connected = False
+_incognito = False
+
+
+def set_incognito(enabled):
+    global _incognito
+    _incognito = bool(enabled)
+
+
+def is_incognito():
+    return _incognito
 
 
 def get_shared_downloads_list():
@@ -46,12 +56,15 @@ def get_shared_profile(parent):
     if _profile is not None:
         return _profile
 
-    profile = QWebEngineProfile("Default", parent)
-    profile.setPersistentStoragePath(webengine_profile_dir())
-    profile.setCachePath(os.path.join(webengine_profile_dir(), "Cache"))
-    profile.setPersistentCookiesPolicy(
-        QWebEngineProfile.PersistentCookiesPolicy.ForcePersistentCookies
-    )
+    if _incognito:
+        profile = QWebEngineProfile(parent)
+    else:
+        profile = QWebEngineProfile("Default", parent)
+        profile.setPersistentStoragePath(webengine_profile_dir())
+        profile.setCachePath(os.path.join(webengine_profile_dir(), "Cache"))
+        profile.setPersistentCookiesPolicy(
+            QWebEngineProfile.PersistentCookiesPolicy.ForcePersistentCookies
+        )
     settings = profile.settings()
     settings.setAttribute(settings.WebAttribute.WebGLEnabled, True)
     settings.setAttribute(settings.WebAttribute.Accelerated2dCanvasEnabled, True)
@@ -77,12 +90,12 @@ def get_shared_cookie_tracker():
 def get_shared_history_store():
     global _history_store
     if _history_store is None:
-        _history_store = HistoryStore()
+        _history_store = HistoryStore(persistent=not _incognito)
     return _history_store
 
 
 def get_shared_prefs():
     global _prefs
     if _prefs is None:
-        _prefs = Prefs()
+        _prefs = Prefs(persistent=not _incognito)
     return _prefs

@@ -1,4 +1,9 @@
-Version 2.0.0:
+Version 2.1.0
+  -Fixed the uninstaller
+  -Added incognito mode
+  -Fixed the installer
+
+Version 2.0.0
   -New menu
   -Added Setting page
   -Redesign

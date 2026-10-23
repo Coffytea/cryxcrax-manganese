@@ -9,9 +9,11 @@ _FIELDNAMES = ["visited_at", "title", "url"]
 
 
 class HistoryStore:
-    def __init__(self):
+    def __init__(self, persistent=True):
+        self.persistent = persistent
         self.entries = []
-        self._load()
+        if self.persistent:
+            self._load()
 
     def _load(self):
         path = history_csv_path()
@@ -41,6 +43,8 @@ class HistoryStore:
     def add(self, title, url):
         dt = QDateTime.currentDateTime()
         self.entries.append({"title": title, "url": url, "dt": dt})
+        if not self.persistent:
+            return
 
         path = history_csv_path()
         file_exists = os.path.exists(path)

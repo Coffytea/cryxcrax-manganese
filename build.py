@@ -24,7 +24,7 @@ def build_browser():
     cmd = [
         sys.executable, "-m", "PyInstaller",
         "--noconfirm", "--clean",
-        "--name", "Manganesev2.0",
+        "--name", "Manganesev2.1.0",
         "--windowed",
         "--distpath", BROWSER_BUILD_DIR,
         "--workpath", os.path.join(DIST, "_work_browser"),
@@ -33,7 +33,7 @@ def build_browser():
     if os.path.isfile(icon_path):
         cmd += ["--icon", icon_path]
     else:
-        print(f"NOTE: {icon_path} not found -- Manganesev2.0.exe will use "
+        print(f"NOTE: {icon_path} not found -- Manganesev2.1.0.exe will use "
               f"PyInstaller's default icon.")
     cmd.append(os.path.join(ROOT, "manganese", "__main__.py"))
     _run(cmd, cwd=ROOT)
@@ -48,6 +48,8 @@ def build_installer():
         "--noconfirm", "--clean",
         "--name", "Manganese Setup",
         "--onefile", "--windowed",
+        "--add-data", f"{PAYLOAD_DIR};payload",
+        "--add-data", f"{ASSETS_DIR};assets",
         "--distpath", INSTALLER_DIST_DIR,
         "--workpath", os.path.join(DIST, "_work_installer"),
         os.path.join(installer_dir, "installer_app.py"),
@@ -57,7 +59,7 @@ def build_installer():
 def assemble_payload():
     
     print("\n=== Assembling installer payload ===")
-    built_browser_dir = os.path.join(BROWSER_BUILD_DIR, "Manganesev2.0")
+    built_browser_dir = os.path.join(BROWSER_BUILD_DIR, "Manganesev2.1.0")
     if not os.path.isdir(built_browser_dir):
         raise SystemExit(f"Expected built browser at {built_browser_dir}, but it's missing")
 
@@ -83,10 +85,10 @@ def main():
 
     os.makedirs(DIST, exist_ok=True)
     build_browser()
-    build_installer()
     assemble_payload()
+    build_installer()
     print(f"\nDone. Ship the folder: {INSTALLER_DIST_DIR}")
-    print('(Contains "Manganese Setup.exe", assets/, and payload/ -- all three are required together.)')
+    print('Ship only "Manganese Setup.exe".')
 
 
 if __name__ == "__main__":

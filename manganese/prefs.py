@@ -10,9 +10,11 @@ DEFAULT_ACCENT = {
 
 
 class Prefs:
-    def __init__(self):
+    def __init__(self, persistent=True):
+        self.persistent = persistent
         self._data = {}
-        self._load()
+        if self.persistent:
+            self._load()
 
     def _load(self):
         path = prefs_path()
@@ -26,6 +28,8 @@ class Prefs:
             self._data = {}
 
     def _save(self):
+        if not self.persistent:
+            return
         path = prefs_path()
         tmp_path = path + ".tmp"
         try:
